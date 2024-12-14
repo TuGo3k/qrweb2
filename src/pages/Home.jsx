@@ -10,6 +10,23 @@ import "swiper/css/autoplay";
 export const Home = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  const backgroundImages = [
+    "./bg.jpg",
+    "./bg2.jpg",
+    "./bg3.jpg",
+    "./bg4.jpg",
+    "./bg5.jpg",
+    "./bg6.jpg",
+  ];
+
+  const [currentImage, setCurrentImage] = useState(backgroundImages[0]);
+
+  const changebackground = () => {
+    const randomImage =
+      backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+    setCurrentImage(randomImage);
+  };
+
   const categories = [
     { title: "Food & Beverages", route: "/food", index: 0 },
     { title: "Beer, Coolers, Ciders", route: "/beer", index: 1 },
@@ -24,7 +41,7 @@ export const Home = () => {
       {/* Background Image */}
       <img
         className="fixed top-0 left-0 h-full w-full object-cover backdrop-contrast-50 -z-10"
-        src="./bg.jpg"
+        src={currentImage}
         alt="Background"
       />
 
@@ -57,7 +74,10 @@ export const Home = () => {
                     }`}
                 >
                   <Link
-                    onClick={() => setSelectedIndex(category.index)}
+                    onClick={() => {
+                      setSelectedIndex(category.index);
+                      changebackground();
+                    }}
                     to={category.route}
                   >
                     {category.title}
